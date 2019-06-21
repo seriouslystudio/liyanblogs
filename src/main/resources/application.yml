@@ -1,0 +1,49 @@
+server:
+  port: 8089
+
+#mysql
+spring:
+#  # 配置SBA Client连接的安全账号密码
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ztree?useSSL=false&serverTimezone=UTC
+    hikari: # springboot 2.0 整合了hikari ,据说这是目前性能最好的java数据库连接池
+      username: root
+      password: root
+
+  # Hibernate 相关配置
+  jpa:
+    hibernate:
+      naming:
+        # 命名策略
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      format_sql: true
+      ddl_auto: update
+    show_sql: true
+
+
+  # THYMELEAF 网页静态化配置
+  thymeleaf:
+    # 是否启用模板缓存
+    cache: false
+    # 应用于模板的模板模式，参考TemplateMode 枚举
+    mode: HTML5
+    # 模板文件编码
+    encoding: UTF-8
+    # 构建URL时预先查看视图名称的前缀
+    prefix: classpath:/templates/
+    # 在构建URL时附加到视图名称的后缀
+    suffix: .html
+    # 文件解析格式
+    content-type: text/html
+  resources: # 指定静态资源的路径
+    static-locations: classpath:/static/,classpath:/templates/
+  # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  static-path-pattern: /**
+
+debug: true
